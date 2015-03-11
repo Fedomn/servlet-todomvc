@@ -1,4 +1,4 @@
-package com.fedomn.servlet.Dao;
+package com.fedomn.todomvc.Dao;
 
 
 import java.sql.Connection;

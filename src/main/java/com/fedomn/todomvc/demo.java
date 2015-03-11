@@ -1,4 +1,4 @@
-package com.fedomn.servlet;
+package com.fedomn.todomvc;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

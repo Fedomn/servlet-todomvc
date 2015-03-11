@@ -1,7 +1,7 @@
-package com.fedomn.servlet.Controller;
+package com.fedomn.todomvc.Controller;
 
-import com.fedomn.servlet.Model.Goddess;
-import com.fedomn.servlet.Service.GoddessService;
+import com.fedomn.todomvc.Model.Goddess;
+import com.fedomn.todomvc.Service.GoddessService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

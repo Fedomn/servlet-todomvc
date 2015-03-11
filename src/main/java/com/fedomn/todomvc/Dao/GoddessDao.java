@@ -1,6 +1,6 @@
-package com.fedomn.servlet.Dao;
+package com.fedomn.todomvc.Dao;
 
-import com.fedomn.servlet.Model.Goddess;
+import com.fedomn.todomvc.Model.Goddess;
 
 import java.sql.Date;
 import java.sql.ResultSet;

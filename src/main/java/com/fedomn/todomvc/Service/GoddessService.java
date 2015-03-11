@@ -1,7 +1,7 @@
-package com.fedomn.servlet.Service;
+package com.fedomn.todomvc.Service;
 
-import com.fedomn.servlet.Dao.GoddessDao;
-import com.fedomn.servlet.Model.Goddess;
+import com.fedomn.todomvc.Dao.GoddessDao;
+import com.fedomn.todomvc.Model.Goddess;
 
 import java.sql.SQLException;
 import java.util.List;

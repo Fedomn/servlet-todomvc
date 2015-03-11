@@ -1,4 +1,4 @@
-package com.fedomn.servlet.Model;
+package com.fedomn.todomvc.Model;
 
 import java.util.Date;
 
