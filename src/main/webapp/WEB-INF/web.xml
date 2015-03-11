@@ -5,7 +5,7 @@
 
     <servlet>
         <servlet-name>IndexServlet</servlet-name>
-        <servlet-class>com.fedomn.servlet.Controller.IndexServlet</servlet-class>
+        <servlet-class>com.fedomn.todomvc.Controller.IndexServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
@@ -14,7 +14,7 @@
 
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>com.fedomn.servlet.demo</servlet-class>
+        <servlet-class>com.fedomn.todomvc.demo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>

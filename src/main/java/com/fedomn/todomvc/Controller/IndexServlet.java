@@ -1,7 +1,7 @@
 package com.fedomn.todomvc.Controller;
 
-import com.fedomn.todomvc.Model.Goddess;
-import com.fedomn.todomvc.Service.GoddessService;
+import com.fedomn.todomvc.Model.Todo;
+import com.fedomn.todomvc.Service.TodoService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +14,11 @@ import java.util.List;
 
 public class IndexServlet extends HttpServlet {
 
-    private List<Goddess> goddessList = new ArrayList<>();
+    private List<Todo> goddessList = new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            goddessList = new GoddessService().query();
+            goddessList = new TodoService().query();
         } catch (SQLException e) {
             e.printStackTrace();
         }

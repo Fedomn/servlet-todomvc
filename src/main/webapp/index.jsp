@@ -7,11 +7,15 @@
 
 <head>
     <title>start page</title>
+    <link rel="stylesheet" href="<%=basePath%>bower_components/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
 
 <body>
-    <a class="btn btn-block" href="<%=basePath%>index"><h1>Goddess userList</h1></a>
+    <%--<a class="btn btn-block btn-lg" href="<%=basePath%>index"><h1>Goddess userList</h1></a>--%>
+
+
+
 
 </body>
 </html>

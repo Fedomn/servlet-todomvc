@@ -1,55 +1,41 @@
-import com.fedomn.servlet.Model.Goddess;
-import com.fedomn.servlet.Service.GoddessService;
-import org.junit.Assert;
+import com.fedomn.todomvc.Model.Todo;
+import com.fedomn.todomvc.Service.TodoService;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ServiceTests {
 
-    private static Date birthday;
-    static {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            birthday = format.parse("1991-10-21");
-        } catch (ParseException e) {
-            e.printStackTrace();
+    @Test
+    public void test_01_add_success() throws SQLException, ParseException {
+        Todo todo = new Todo(5, "test-add", false);
+        new TodoService().add(todo);
+    }
+
+
+
+    @Test
+    public void test_02_query_success() throws SQLException {
+        List<Todo> queryTodo = new TodoService().query();
+        for (Todo todo : queryTodo) {
+            System.out.println(todo);
         }
     }
 
     @Test
-    public void test_01_addDb_success() throws SQLException, ParseException {
-        Goddess goddess = new Goddess(10, "小夏", 1, 10, birthday, "1111@qq.com", "10086");
-        new GoddessService().add(goddess);
-    }
-
-    @Test
-    public void test_02_queryDbById_success() throws SQLException {
-        Goddess goddess1 = new GoddessService().queryById(10);
-        Goddess goddess2 = new Goddess(10, "小夏", 1, 10, new java.sql.Date(birthday.getTime()), "1111@qq.com", "10086");
-        System.out.println(goddess1);
-        System.out.println(goddess2);
-        Assert.assertEquals(goddess1, goddess2);
-    }
-
-    @Test
-    public void test_03_updateDbById_success() throws SQLException {
-        Goddess goddess = new Goddess(10, "小夏", 1, 30, birthday, "1111@qq.com", "10086");
-        new GoddessService().update(goddess);
+    public void test_03_update_success() throws SQLException {
+        Todo todo = new Todo(5, "test-Update", false);
+        new TodoService().update(todo);
     }
 
     @Test
     public void test_04_deleteBdById_success() throws SQLException {
-        Goddess goddess = new Goddess(10, "小夏", 2, 1, birthday, "1111@qq.com", "10086");
-        new GoddessService().deleteById(goddess);
+        Todo todo = new Todo(5, "test-Update", false);
+        new TodoService().deleteById(todo);
     }
-
-
 }
