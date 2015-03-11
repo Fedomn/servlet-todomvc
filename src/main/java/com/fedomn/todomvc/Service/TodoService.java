@@ -27,8 +27,8 @@ public class TodoService {
         todoDao.update(todo);
     }
 
-    public void deleteById(Todo todo) throws SQLException {
-        todoDao.deleteById(todo);
+    public void deleteById(Integer id) throws SQLException {
+        todoDao.deleteById(id);
     }
 
     public List<Todo> getTodoList() throws SQLException {

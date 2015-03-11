@@ -45,12 +45,11 @@ public class TodoDao extends Dao{
         close();
     }
 
-    public void deleteById(Todo todo) throws SQLException {
+    public void deleteById(Integer id) throws SQLException {
         String sql = "delete from todo where id = ?";
         preparedStatement = conn.prepareStatement(sql);
-        preparedStatement.setInt(1, todo.getId());
+        preparedStatement.setInt(1, id);
         preparedStatement.execute();
-        preparedStatement.close();
         close();
     }
 

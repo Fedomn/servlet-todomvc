@@ -18,12 +18,25 @@ $(function () {
         }
     });
 
-
-    $(".destroy").live("click", function () {
-        console.log("fdsf");
-        var id = $(this).closest("li").data("id");
+    //jQuery2.1.1 remove .live()
+    $("#todo-list").delegate(".destroy", "click", function () {
+        var $li = $(this).closest("li");
+        var id = $li.data("id");
         console.log(id);
+        $.ajax({
+            url: "/delete",
+            data: {id: id},
+            type: "POST",
+            success: function () {
+                $li.remove();
+            }
+        });
+
+
     });
+
+
+
 
 
     function makeTodoList(id, title) {
@@ -36,6 +49,5 @@ $(function () {
             "<input class='edit' value='" + title + "'/>" +
             "</li>";
     }
-
 
 });

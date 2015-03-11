@@ -4,21 +4,21 @@
     <display-name>Hello Servlet</display-name>
 
     <servlet>
-        <servlet-name>IndexServlet</servlet-name>
+        <servlet-name>AddServlet</servlet-name>
         <servlet-class>com.fedomn.todomvc.Controller.AddServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>IndexServlet</servlet-name>
+        <servlet-name>AddServlet</servlet-name>
         <url-pattern>/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>com.fedomn.todomvc.demo</servlet-class>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>com.fedomn.todomvc.Controller.DeleteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/HelloServlet</url-pattern>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
 

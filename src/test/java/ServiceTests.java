@@ -35,7 +35,7 @@ public class ServiceTests {
     @Test
     public void test_04_deleteBdById_success() throws SQLException {
         Todo todo = new Todo(2, "test-Update", false);
-        new TodoService().deleteById(todo);
+        new TodoService().deleteById(todo.getId());
     }
 
 
