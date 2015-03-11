@@ -1,10 +1,7 @@
 package com.fedomn.todomvc.Dao;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Dao {
 
@@ -28,8 +25,10 @@ public class Dao {
     }
 
     public void close() throws SQLException {
-        preparedStatement.close();
-        conn.close();
+        if (preparedStatement != null)
+            preparedStatement.close();
+        if (conn != null)
+            conn.close();
     }
 
 }

@@ -43,7 +43,7 @@
 </div>
 
 
-  <script src="<%=basePath%>static/js/show-userList.js"></script>
+  <script src="<%=basePath%>static/js/index.js"></script>
     <script src="<%=basePath%>bower_components/jquery/dist/jquery.min.js"></script>
 </body>
 </html>

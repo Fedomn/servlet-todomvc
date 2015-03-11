@@ -8,34 +8,42 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ServiceTests {
 
+    private static Todo testTodo;
+
     @Test
     public void test_01_add_success() throws SQLException, ParseException {
-        Todo todo = new Todo(5, "test-add", false);
-        new TodoService().add(todo);
+        testTodo = new TodoService().add(new Todo("test-add", false));
     }
 
-
-
     @Test
-    public void test_02_query_success() throws SQLException {
-        List<Todo> queryTodo = new TodoService().query();
-        for (Todo todo : queryTodo) {
-            System.out.println(todo);
-        }
+    public void test_02_getTodoById_success() throws SQLException {
+        Todo todo = new TodoService().getTodoById(testTodo.getId());
+        assertEquals(todo, testTodo);
     }
 
     @Test
     public void test_03_update_success() throws SQLException {
-        Todo todo = new Todo(5, "test-Update", false);
+        Todo todo = new Todo(1, "test-Update", false);
         new TodoService().update(todo);
     }
 
     @Test
     public void test_04_deleteBdById_success() throws SQLException {
-        Todo todo = new Todo(5, "test-Update", false);
+        Todo todo = new Todo(2, "test-Update", false);
         new TodoService().deleteById(todo);
+    }
+
+
+    @Test
+    public void test_05_getTodoList_success() throws SQLException {
+        List<Todo> queryTodo = new TodoService().getTodoList();
+        for (Todo todo : queryTodo) {
+            System.out.println(todo);
+        }
     }
 }

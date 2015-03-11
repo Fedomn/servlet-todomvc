@@ -5,11 +5,11 @@
 
     <servlet>
         <servlet-name>IndexServlet</servlet-name>
-        <servlet-class>com.fedomn.todomvc.Controller.IndexServlet</servlet-class>
+        <servlet-class>com.fedomn.todomvc.Controller.AddServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/add</url-pattern>
     </servlet-mapping>
 
     <servlet>

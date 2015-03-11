@@ -13,8 +13,14 @@ public class TodoService {
         todoDao = new TodoDao();
     }
 
-    public void add(Todo todo) throws SQLException {
-        todoDao.add(todo);
+    /**
+     *
+     * @param todo
+     * @return added todo contains auto_increase_id
+     * @throws SQLException
+     */
+    public Todo add(Todo todo) throws SQLException {
+        return todoDao.add(todo);
     }
 
     public void update(Todo todo) throws SQLException {
@@ -25,7 +31,11 @@ public class TodoService {
         todoDao.deleteById(todo);
     }
 
-    public List<Todo> query() throws SQLException {
-        return todoDao.query();
+    public List<Todo> getTodoList() throws SQLException {
+        return todoDao.getTodoList();
+    }
+
+    public Todo getTodoById(Integer id) throws SQLException {
+        return todoDao.getTodoById(id);
     }
 }

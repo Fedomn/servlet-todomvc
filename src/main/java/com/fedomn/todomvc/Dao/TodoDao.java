@@ -4,19 +4,34 @@ import com.fedomn.todomvc.Model.Todo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TodoDao extends Dao{
 
-    public void add(Todo todo) throws SQLException {
+    /**
+     * return added todo contains auto_increase_id
+     * @param todo
+     * @return added todo contains auto_increase_id
+     * @throws SQLException
+     */
+    public Todo add(Todo todo) throws SQLException {
+        Integer autoIncKey = null;
         String sql = "INSERT INTO todo (title, completed) VALUES(?, ?);";
 
-        preparedStatement = conn.prepareStatement(sql);
+        preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, todo.getTitle());
         preparedStatement.setBoolean(2, todo.getCompleted());
         preparedStatement.execute();
-        close();
+
+        //get last insert data's auto_increase_id
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+        while (resultSet.next()) {
+            autoIncKey = resultSet.getInt(1);
+        }
+
+        return getTodoById(autoIncKey);
     }
 
     public void update(Todo todo) throws SQLException {
@@ -39,7 +54,7 @@ public class TodoDao extends Dao{
         close();
     }
 
-    public List<Todo> query() throws SQLException {
+    public List<Todo> getTodoList() throws SQLException {
         List<Todo> todoList = new ArrayList<>();
 
         String sql = "select * from todo";
@@ -51,5 +66,19 @@ public class TodoDao extends Dao{
         resultSet.close();
         close();
         return todoList;
+    }
+
+    public Todo getTodoById(Integer id) throws SQLException {
+        Todo todo = null;
+        String sql = "select * from todo where id = ?";
+
+        preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            todo = new Todo(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getBoolean("completed"));
+        }
+        close();
+        return todo;
     }
 }
