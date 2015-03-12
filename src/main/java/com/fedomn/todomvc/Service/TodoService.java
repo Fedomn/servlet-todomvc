@@ -13,12 +13,6 @@ public class TodoService {
         todoDao = new TodoDao();
     }
 
-    /**
-     *
-     * @param todo
-     * @return added todo contains auto_increase_id
-     * @throws SQLException
-     */
     public Todo add(Todo todo) throws SQLException {
         return todoDao.add(todo);
     }

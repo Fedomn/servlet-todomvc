@@ -23,20 +23,24 @@ public class QueryServlet extends HttpServlet{
         List<Todo> todoList = null;
 
         String state = req.getParameter("state");
-        if (state.equals("active")) {
-            try {
-                todoList = new TodoService().getActiveTodoList();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else if (state.equals("complete")) {
+        switch (state) {
+            case "active":
+                try {
+                    todoList = new TodoService().getActiveTodoList();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "complete":
 
-        }else {
-            try {
-                todoList = new TodoService().getAllTodoList();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+                break;
+            default:
+                try {
+                    todoList = new TodoService().getAllTodoList();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
         String jsonTodoList = JSON.toJSONString(todoList);
         System.out.println(jsonTodoList);
