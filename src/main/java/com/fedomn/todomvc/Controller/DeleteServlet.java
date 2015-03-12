@@ -21,6 +21,7 @@ public class DeleteServlet extends HttpServlet{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("delete todo id: " + id);
         out.print("delete success");
     }
 }

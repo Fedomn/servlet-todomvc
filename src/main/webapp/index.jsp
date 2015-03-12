@@ -2,6 +2,7 @@
 <%@ page import="com.fedomn.todomvc.Model.Todo" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.fedomn.todomvc.Service.TodoService" %>
+<%@ page import="com.alibaba.fastjson.JSON" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
@@ -18,8 +19,11 @@
 
 <body>
 <%
-    List<Todo> todoList = new TodoService().getTodoList();
-//    out.println(todoList);
+    List<Todo> allTodo = new TodoService().getAllTodoList();
+    List<Todo> activeTodo = new TodoService().getActiveTodoList();
+
+    response.addCookie(new Cookie("allTodoCount", String.valueOf(allTodo.size())));
+    response.addCookie(new Cookie("activeTodoCount", String.valueOf(activeTodo.size())));
 %>
 
     <%--<a class="btn btn-block btn-lg" href="<%=basePath%>index"><h1>Goddess userList</h1></a>--%>
@@ -31,10 +35,9 @@
 
         <section id="main">
             <input id="toggle-all" type="checkbox">
-            <label for="toggle-all">Mark all as complete</label>
 
             <ul id="todo-list">
-                <c:forEach items="<%=todoList%>" var="todo">
+                <c:forEach items="<%=allTodo%>" var="todo">
                     <li class="active" data-id="${todo.id}">
                     <div class="view">
                         <input class="toggle" type="checkbox">
@@ -48,7 +51,7 @@
         </section>
 
         <footer id="footer">
-            <span id="todo-count"><strong><%=todoList.size()%></strong> items left</span>
+            <span id="todo-count"><strong><%=allTodo.size()%></strong> items left</span>
             <ul id="filters">
                 <li>
                     <a href="#/all">All</a>
@@ -73,6 +76,7 @@
     </footer>
 
     <script src="<%=basePath%>bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="<%=basePath%>bower_components/jquery/dist/jquery.cookie.js"></script>
     <script src="<%=basePath%>static/js/index.js"></script>
 
 </body>

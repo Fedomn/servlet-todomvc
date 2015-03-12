@@ -21,5 +21,23 @@
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UpdateServlet</servlet-name>
+        <servlet-class>com.fedomn.todomvc.Controller.UpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateServlet</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>QueryServlet</servlet-name>
+        <servlet-class>com.fedomn.todomvc.Controller.QueryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>QueryServlet</servlet-name>
+        <url-pattern>/query</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

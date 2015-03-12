@@ -41,7 +41,7 @@ public class ServiceTests {
 
     @Test
     public void test_05_getTodoList_success() throws SQLException {
-        List<Todo> queryTodo = new TodoService().getTodoList();
+        List<Todo> queryTodo = new TodoService().getAllTodoList();
         for (Todo todo : queryTodo) {
             System.out.println(todo);
         }

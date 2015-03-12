@@ -10,12 +10,6 @@ import java.util.List;
 
 public class TodoDao extends Dao{
 
-    /**
-     * return added todo contains auto_increase_id
-     * @param todo
-     * @return added todo contains auto_increase_id
-     * @throws SQLException
-     */
     public Todo add(Todo todo) throws SQLException {
         Integer autoIncKey = null;
         String sql = "INSERT INTO todo (title, completed) VALUES(?, ?);";
@@ -53,10 +47,17 @@ public class TodoDao extends Dao{
         close();
     }
 
-    public List<Todo> getTodoList() throws SQLException {
+    public List<Todo> getTodoList(String state) throws SQLException {
         List<Todo> todoList = new ArrayList<>();
 
-        String sql = "select * from todo";
+        String sql = "SELECT * FROM todo WHERE 1=1";
+        if (state.equals("active")) {
+            sql += " and completed = FALSE ";
+        }
+        if (state.equals("complete")) {
+            sql += " and completed = TRUE ";
+        }
+
         preparedStatement = conn.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {

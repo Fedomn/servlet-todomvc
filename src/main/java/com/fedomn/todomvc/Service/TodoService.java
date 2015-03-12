@@ -31,9 +31,20 @@ public class TodoService {
         todoDao.deleteById(id);
     }
 
-    public List<Todo> getTodoList() throws SQLException {
-        return todoDao.getTodoList();
+    public List<Todo> getAllTodoList() throws SQLException {
+        return todoDao.getTodoList("all");
     }
+
+    public List<Todo> getActiveTodoList() throws SQLException {
+        return todoDao.getTodoList("active");
+    }
+
+    public List<Todo> getCompleteTodoList() throws SQLException {
+        return todoDao.getTodoList("complete");
+    }
+
+
+
 
     public Todo getTodoById(Integer id) throws SQLException {
         return todoDao.getTodoById(id);
