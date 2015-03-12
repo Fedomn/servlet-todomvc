@@ -12,6 +12,10 @@ $(function () {
                 "</div>" +
                 "<input class='edit' value='" + title + "'/>" +
                 "</li>";
+        },
+        getCheckState: function ($check_box) {
+            if($check_box.prop("checked")) return true;
+            return false;
         }
     };
 
@@ -22,7 +26,6 @@ $(function () {
             //console.log(this.allTodoCount, this.activeTodoCount);
             this.cacheElements();
             this.bindEvents();
-            this.render();
         },
 
         cacheElements: function () {
@@ -37,25 +40,6 @@ $(function () {
             this.$clearBtn = this.$footer.find('#clear-completed');
         },
 
-        render: function () {
-            $.post();
-        },
-
-        renderFooter: function () {
-
-        },
-
-        getTodos: function (state, func) {
-            $.ajax({
-                url: "/query",
-                data: {state: state},
-                type: "POST",
-                success: function (jsonString) {
-                    func(JSON.parse(jsonString));
-                }
-            });
-        },
-
         bindEvents: function () {
             var list = this.$todoList;
             //add
@@ -66,10 +50,11 @@ $(function () {
             list.on('dblclick', 'label', this.edit.bind(this));
             list.on('keyup', '.edit', this.editKeyup.bind(this));
             list.on('focusout', '.edit', this.update.bind(this));
-
-            //this.$toggleAll.on('change', this.toggleAll.bind(this));
+            //toggle
+            list.on('change', '.toggle', this.toggle.bind(this));
+            //toggleAll
+            this.$toggleAll.on('change', this.toggleAll.bind(this));
             //this.$footer.on('click', '#clear-completed', this.destroyCompleted.bind(this));
-            //list.on('change', '.toggle', this.toggle.bind(this));
         },
 
         add: function (e) {
@@ -131,6 +116,7 @@ $(function () {
 
             var id = $(e.target).closest("li").data("id");
             var title = $el.val().trim();
+            var $check_box = $li.find(".toggle");
 
             if ($el.data('abort')) {
                 $el.data('abort', false);
@@ -141,15 +127,34 @@ $(function () {
 
             $.ajax({
                 url: "/update",
-                data: {id: id, title: title},
+                data: {id: id, title: title, complete: util.getCheckState($check_box)},
                 type: "POST",
                 success: function () {
                     $label.text(title);
                     $li.removeClass("editing");
                 }
             });
-        }
+        },
 
+        toggle: function (e) {
+            var $check_bok = $(e.target);
+            var $li = $check_bok.closest("li");
+            var id = $li.data("id");
+            var title = $li.find(".edit").val();
+            $.ajax({
+                url: "/update",
+                data: {id: id, title: title, complete: util.getCheckState($check_bok)},
+                type: "POST",
+                success: function () {
+                    $check_bok.closest("li").toggleClass("completed");
+                }
+            });
+        },
+
+        toggleAll: function (e) {
+            var isChecked = $(e.target).prop('checked');
+            //.....
+        }
 
 
 
