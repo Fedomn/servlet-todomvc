@@ -63,7 +63,8 @@ $(function () {
             list.on('change', '.toggle', this.toggle.bind(this));
             //toggleAll
             this.$toggleAll.on('change', this.toggleAll.bind(this));
-            //this.$footer.on('click', '#clear-completed', this.destroyCompleted.bind(this));
+            //clear-completed
+            this.$footer.on('click', '#clear-completed', this.destroyCompleted.bind(this));
         },
 
         add: function (e) {
@@ -92,7 +93,7 @@ $(function () {
             console.log(id);
             $.ajax({
                 url: "/delete",
-                data: {id: id},
+                data: {id: id, argument: "one"},
                 type: "POST",
                 success: function () {
                     $li.remove();
@@ -169,8 +170,13 @@ $(function () {
                 $("ul li").toggleClass("completed");
                 App.renderFooter();
             });
-        }
+        },
 
+        destroyCompleted: function (e) {
+            $.post("/delete", {id: 0, argument: "all"}, function () {
+                App.$todoList.find("li").remove();
+            });
+        }
 
 
     };

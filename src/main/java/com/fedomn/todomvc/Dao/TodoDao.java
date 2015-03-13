@@ -60,6 +60,13 @@ public class TodoDao extends Dao{
         close();
     }
 
+    public void deleteAll() throws SQLException {
+        String sql = "delete from todo;";
+        preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.execute();
+        close();
+    }
+
     public List<Todo> getTodoList(String state) throws SQLException {
         List<Todo> todoList = new ArrayList<>();
 

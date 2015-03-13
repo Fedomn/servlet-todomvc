@@ -15,13 +15,34 @@ public class DeleteServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
+
+        String argument = req.getParameter("argument");
         Integer id = Integer.parseInt(req.getParameter("id"));
+
+        if (argument != null && argument.equals("all")) {
+            deleteAll();
+        } else {
+            delete(id);
+        }
+        out.print("delete success");
+    }
+
+
+    private void delete(Integer id) {
         try {
             new TodoService().deleteById(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         System.out.println("delete todo id: " + id);
-        out.print("delete success");
+    }
+
+    private void deleteAll() {
+        try {
+            new TodoService().deleteAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("delete all");
     }
 }

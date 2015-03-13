@@ -29,6 +29,11 @@ public class TodoService {
         todoDao.deleteById(id);
     }
 
+    public void deleteAll() throws SQLException {
+        todoDao.deleteAll();
+    }
+
+
     public List<Todo> getAll() throws SQLException {
         return todoDao.getTodoList("all");
     }
