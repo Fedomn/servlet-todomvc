@@ -20,10 +20,6 @@
 <body>
 <%
     List<Todo> allTodo = new TodoService().getAll();
-    List<Todo> activeTodo = new TodoService().getActive();
-
-    response.addCookie(new Cookie("allTodoCount", String.valueOf(allTodo.size())));
-    response.addCookie(new Cookie("activeTodoCount", String.valueOf(activeTodo.size())));
 %>
 
     <%--<a class="btn btn-block btn-lg" href="<%=basePath%>index"><h1>Goddess userList</h1></a>--%>

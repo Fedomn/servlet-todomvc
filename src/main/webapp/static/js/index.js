@@ -13,24 +13,28 @@ $(function () {
                 "<input class='edit' value='" + title + "'/>" +
                 "</li>";
         },
-        getCheckState: function ($check_box) {
+
+        isChecked: function ($check_box) {
             return !!$check_box.prop("checked");
         },
-        getAllCount: function () {
-            $.post("/query", {}, function () {
 
-
-                });
+        query: function (state, argument, func) {
+            $.post("/query", {state: state, argument: argument}, func);
         }
     };
 
     var App = {
         init: function () {
-            this.allTodoCount = $.cookie("allTodoCount");
-            this.activeTodoCount = $.cookie("activeTodoCount");
-            //console.log(this.allTodoCount, this.activeTodoCount);
+            this.renderFooter();
             this.cacheElements();
             this.bindEvents();
+        },
+
+        renderFooter: function () {
+            util.query("active", "count", function (jsonData) {
+                App.activeCount = JSON.parse(jsonData);
+                App.$count.find("strong").text(App.activeCount);
+            });
         },
 
         cacheElements: function () {
@@ -77,9 +81,7 @@ $(function () {
                     var todo = JSON.parse(jsonData);
                     $("#todo-list").append(util.makeTodoList(todo.id, todo.title));
                     $input.val("");
-                    App.activeTodoCount++;
-                    App.allTodoCount++;
-                    //console.log(App.activeTodoCount);
+                    App.renderFooter();
                 }
             });
         },
@@ -94,6 +96,7 @@ $(function () {
                 type: "POST",
                 success: function () {
                     $li.remove();
+                    App.renderFooter();
                 }
             });
         },
@@ -132,7 +135,7 @@ $(function () {
 
             $.ajax({
                 url: "/update",
-                data: {id: id, title: title, complete: util.getCheckState($check_box)},
+                data: {id: id, title: title, state: util.isChecked($check_box)},
                 type: "POST",
                 success: function () {
                     $label.text(title);
@@ -148,17 +151,24 @@ $(function () {
             var title = $li.find(".edit").val();
             $.ajax({
                 url: "/update",
-                data: {id: id, title: title, complete: util.getCheckState($check_bok)},
+                data: {id: id, title: title, state: util.isChecked($check_bok)},
                 type: "POST",
                 success: function () {
+                    console.log(util.isChecked($check_bok));
                     $check_bok.closest("li").toggleClass("completed");
+                    App.renderFooter();
                 }
             });
         },
 
         toggleAll: function (e) {
             var isChecked = $(e.target).prop('checked');
-            //.....
+            $.post("/update", {id: 0, title: "", state: isChecked, argument: "all"}, function () {
+                //toggle all checkbox
+                //$("#todo-list :checkbox").attr("checked", true);
+                $("ul li").toggleClass("completed");
+                App.renderFooter();
+            });
         }
 
 

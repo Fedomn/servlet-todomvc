@@ -16,11 +16,30 @@ public class UpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.parseInt(req.getParameter("id"));
         String title = req.getParameter("title");
-        Boolean state = Boolean.valueOf(req.getParameter("complete"));
+        Boolean state = Boolean.valueOf(req.getParameter("state"));
+        String argument = req.getParameter("argument");
+        System.out.println(argument);
 
-        System.out.println("Update get id :" + id + " title : " + title + "complete: " + state);
+        if (argument != null && argument.equals("all")) {
+            updateAllState(state);
+        } else {
+            update(new Todo(id, title, state));
+        }
+    }
+
+    private void update(Todo todo) {
+        System.out.println("Update id :" + todo.getId() + " title : " + todo.getId() + " completed: " + todo.getCompleted());
         try {
-            new TodoService().update(new Todo(id, title, state));
+            new TodoService().update(todo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateAllState(Boolean state) {
+        System.out.println("Update list completed: " + state);
+        try {
+            new TodoService().updateAllState(state);
         } catch (SQLException e) {
             e.printStackTrace();
         }

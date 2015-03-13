@@ -21,6 +21,10 @@ public class TodoService {
         todoDao.update(todo);
     }
 
+    public void updateAllState(Boolean state) throws SQLException {
+        todoDao.updateAllState(state);
+    }
+
     public void deleteById(Integer id) throws SQLException {
         todoDao.deleteById(id);
     }
@@ -52,8 +56,6 @@ public class TodoService {
     public Integer getCompletedCount() throws SQLException {
         return todoDao.getTodoCount("completed");
     }
-
-
 
 
 }

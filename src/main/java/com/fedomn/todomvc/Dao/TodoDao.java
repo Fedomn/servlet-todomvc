@@ -39,6 +39,19 @@ public class TodoDao extends Dao{
         close();
     }
 
+    public void updateAllState(Boolean state) throws SQLException {
+        String sql = "UPDATE todo SET completed = ?";
+
+        preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setBoolean(1, state);
+        preparedStatement.execute();
+        close();
+    }
+
+
+
+
+
     public void deleteById(Integer id) throws SQLException {
         String sql = "delete from todo where id = ?";
         preparedStatement = conn.prepareStatement(sql);
@@ -85,12 +98,12 @@ public class TodoDao extends Dao{
 
     public Integer getTodoCount(String state) throws SQLException {
         Integer allCount;
-        String sql = "select count(1) from todo where 1=1 ;";
+        String sql = "select count(1) from todo where 1=1 ";
         if (state.equals("active")) {
-            sql += " and completed = FALSE ";
+            sql += " and completed = FALSE;";
         }
         if (state.equals("complete")) {
-            sql += " and completed = TRUE ";
+            sql += " and completed = TRUE;";
         }
 
         preparedStatement = conn.prepareStatement(sql);

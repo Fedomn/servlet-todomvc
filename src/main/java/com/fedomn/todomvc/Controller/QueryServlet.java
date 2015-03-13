@@ -15,35 +15,57 @@ import java.util.List;
 
 public class QueryServlet extends HttpServlet{
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String jsonData = "";
         //prevent chinese garbled
         resp.setCharacterEncoding("utf-8");
         PrintWriter out = resp.getWriter();
-        List<Todo> todoList = null;
 
         String state = req.getParameter("state");
+        String argument = req.getParameter("argument");
+        System.out.println(state+" "+argument);
+
+        if (argument.equals("list")) {
+            try {
+                jsonData = JSON.toJSONString(getList(state));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (argument.equals("count")) {
+            try {
+                jsonData = JSON.toJSONString(getCount(state));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(jsonData);
+        out.print(jsonData);
+    }
+
+
+    private Integer getCount(String state) throws SQLException {
         switch (state) {
             case "active":
-                try {
-                    todoList = new TodoService().getActive();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case "complete":
-
-                break;
+                return new TodoService().getActiveCount();
+            case "completed":
+                return new TodoService().getCompletedCount();
             default:
-                try {
-                    todoList = new TodoService().getAll();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                break;
+                return new TodoService().getAllCount();
         }
-        String jsonTodoList = JSON.toJSONString(todoList);
-        System.out.println(jsonTodoList);
-        out.print(jsonTodoList);
+    }
+
+
+    private List<Todo> getList(String state) throws SQLException {
+        switch (state) {
+            case "active":
+                return new TodoService().getActive();
+            case "completed":
+                return new TodoService().getCompleted();
+            default:
+                return new TodoService().getAll();
+        }
     }
 }
