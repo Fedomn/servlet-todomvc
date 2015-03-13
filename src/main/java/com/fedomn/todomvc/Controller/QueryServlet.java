@@ -26,7 +26,7 @@ public class QueryServlet extends HttpServlet{
         switch (state) {
             case "active":
                 try {
-                    todoList = new TodoService().getActiveTodoList();
+                    todoList = new TodoService().getActive();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -36,7 +36,7 @@ public class QueryServlet extends HttpServlet{
                 break;
             default:
                 try {
-                    todoList = new TodoService().getAllTodoList();
+                    todoList = new TodoService().getAll();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

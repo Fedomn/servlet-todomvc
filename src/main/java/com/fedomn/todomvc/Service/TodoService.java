@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TodoService {
-    TodoDao todoDao;
+    private TodoDao todoDao;
 
     public TodoService() {
         todoDao = new TodoDao();
@@ -25,22 +25,35 @@ public class TodoService {
         todoDao.deleteById(id);
     }
 
-    public List<Todo> getAllTodoList() throws SQLException {
+    public List<Todo> getAll() throws SQLException {
         return todoDao.getTodoList("all");
     }
 
-    public List<Todo> getActiveTodoList() throws SQLException {
+    public List<Todo> getActive() throws SQLException {
         return todoDao.getTodoList("active");
     }
 
-    public List<Todo> getCompleteTodoList() throws SQLException {
+    public List<Todo> getCompleted() throws SQLException {
         return todoDao.getTodoList("complete");
     }
-
-
-
 
     public Todo getTodoById(Integer id) throws SQLException {
         return todoDao.getTodoById(id);
     }
+
+    public Integer getAllCount() throws SQLException {
+        return todoDao.getTodoCount("all");
+    }
+
+    public Integer getActiveCount() throws SQLException {
+        return todoDao.getTodoCount("active");
+    }
+
+    public Integer getCompletedCount() throws SQLException {
+        return todoDao.getTodoCount("completed");
+    }
+
+
+
+
 }

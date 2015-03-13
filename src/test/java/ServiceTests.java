@@ -28,22 +28,31 @@ public class ServiceTests {
 
     @Test
     public void test_03_update_success() throws SQLException {
-        Todo todo = new Todo(1, "test-Update", false);
+        Todo todo = new Todo(testTodo.getId(), "test-Update", false);
         new TodoService().update(todo);
     }
 
     @Test
     public void test_04_deleteBdById_success() throws SQLException {
-        Todo todo = new Todo(2, "test-Update", false);
+        Todo todo = new Todo(testTodo.getId(), "test-Update", false);
         new TodoService().deleteById(todo.getId());
     }
 
 
     @Test
     public void test_05_getTodoList_success() throws SQLException {
-        List<Todo> queryTodo = new TodoService().getAllTodoList();
+        List<Todo> queryTodo = new TodoService().getAll();
         for (Todo todo : queryTodo) {
             System.out.println(todo);
         }
     }
+
+    @Test
+    public void test_06_getAllCount_success() throws SQLException {
+        Integer allCount = new TodoService().getAllCount();
+        assertEquals(allCount, Integer.valueOf(3));
+    }
+
+
+
 }

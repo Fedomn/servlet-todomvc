@@ -19,8 +19,8 @@
 
 <body>
 <%
-    List<Todo> allTodo = new TodoService().getAllTodoList();
-    List<Todo> activeTodo = new TodoService().getActiveTodoList();
+    List<Todo> allTodo = new TodoService().getAll();
+    List<Todo> activeTodo = new TodoService().getActive();
 
     response.addCookie(new Cookie("allTodoCount", String.valueOf(allTodo.size())));
     response.addCookie(new Cookie("activeTodoCount", String.valueOf(activeTodo.size())));

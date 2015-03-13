@@ -14,8 +14,13 @@ $(function () {
                 "</li>";
         },
         getCheckState: function ($check_box) {
-            if($check_box.prop("checked")) return true;
-            return false;
+            return !!$check_box.prop("checked");
+        },
+        getAllCount: function () {
+            $.post("/query", {}, function () {
+
+
+                });
         }
     };
 

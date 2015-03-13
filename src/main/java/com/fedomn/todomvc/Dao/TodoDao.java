@@ -29,7 +29,7 @@ public class TodoDao extends Dao{
     }
 
     public void update(Todo todo) throws SQLException {
-        String sql = " UPDATE todo SET title=?, completed=? WHERE id = ?";
+        String sql = "UPDATE todo SET title=?, completed=? WHERE id = ?";
 
         preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setString(1, todo.getTitle());
@@ -78,7 +78,28 @@ public class TodoDao extends Dao{
         while (resultSet.next()) {
             todo = new Todo(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getBoolean("completed"));
         }
+        resultSet.close();
         close();
         return todo;
+    }
+
+    public Integer getTodoCount(String state) throws SQLException {
+        Integer allCount;
+        String sql = "select count(1) from todo where 1=1 ;";
+        if (state.equals("active")) {
+            sql += " and completed = FALSE ";
+        }
+        if (state.equals("complete")) {
+            sql += " and completed = TRUE ";
+        }
+
+        preparedStatement = conn.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        allCount = resultSet.getInt(1);
+
+        resultSet.close();
+        close();
+        return allCount;
     }
 }

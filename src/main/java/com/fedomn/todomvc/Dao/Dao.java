@@ -12,7 +12,7 @@ public class Dao {
     Connection conn = getConnection();
     PreparedStatement preparedStatement;
 
-    private Connection getConnection() {
+    private static Connection getConnection() {
         try {
             Class.forName(DRIVER);
             return DriverManager.getConnection(URL, USER, PASSWORD);
