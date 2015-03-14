@@ -164,10 +164,18 @@ $(function () {
 
         toggleAll: function (e) {
             var isChecked = $(e.target).prop('checked');
+            console.log(isChecked);
             $.post("/update", {id: 0, title: "", state: isChecked, argument: "all"}, function () {
                 //toggle all checkbox
-                //$("#todo-list :checkbox").attr("checked", true);
-                $("ul li").toggleClass("completed");
+                $("#todo-list :checkbox").prop("checked", isChecked);
+                //$("ul li").toggleClass("completed");
+                $("ul li").each(function () {
+                    if(isChecked) {
+                        $(this).addClass("completed");
+                    }else {
+                        $(this).removeClass("completed");
+                    }
+                });
                 App.renderFooter();
             });
         },
@@ -181,6 +189,7 @@ $(function () {
                         $(this).closest("li").remove();
                     }
                 });
+                App.$toggleAll.prop("checked", false);
                 App.renderFooter();
             });
         }
