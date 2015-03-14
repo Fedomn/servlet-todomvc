@@ -29,8 +29,8 @@ public class TodoService {
         todoDao.deleteById(id);
     }
 
-    public void deleteAll() throws SQLException {
-        todoDao.deleteAll();
+    public void deleteAllCompleted() throws SQLException {
+        todoDao.deleteAllCompleted();
     }
 
 

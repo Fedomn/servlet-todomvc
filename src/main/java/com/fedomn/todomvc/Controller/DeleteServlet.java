@@ -19,8 +19,8 @@ public class DeleteServlet extends HttpServlet{
         String argument = req.getParameter("argument");
         Integer id = Integer.parseInt(req.getParameter("id"));
 
-        if (argument != null && argument.equals("all")) {
-            deleteAll();
+        if (argument != null && argument.equals("all-completed")) {
+            deleteAllCompleted();
         } else {
             delete(id);
         }
@@ -37,12 +37,12 @@ public class DeleteServlet extends HttpServlet{
         System.out.println("delete todo id: " + id);
     }
 
-    private void deleteAll() {
+    private void deleteAllCompleted() {
         try {
-            new TodoService().deleteAll();
+            new TodoService().deleteAllCompleted();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("delete all");
+        System.out.println("delete all completed");
     }
 }

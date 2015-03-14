@@ -60,8 +60,8 @@ public class TodoDao extends Dao{
         close();
     }
 
-    public void deleteAll() throws SQLException {
-        String sql = "delete from todo;";
+    public void deleteAllCompleted() throws SQLException {
+        String sql = "DELETE FROM todo WHERE completed = TRUE ;";
         preparedStatement = conn.prepareStatement(sql);
         preparedStatement.execute();
         close();

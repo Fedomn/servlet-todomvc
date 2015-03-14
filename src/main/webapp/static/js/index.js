@@ -173,8 +173,15 @@ $(function () {
         },
 
         destroyCompleted: function (e) {
-            $.post("/delete", {id: 0, argument: "all"}, function () {
-                App.$todoList.find("li").remove();
+            $.post("/delete", {id: 0, argument: "all-completed"}, function () {
+                //refresh list
+                $("#todo-list :checkbox").each(function () {
+                    console.log(util.isChecked($(this)));
+                    if(util.isChecked($(this)) == true){
+                        $(this).closest("li").remove();
+                    }
+                });
+                App.renderFooter();
             });
         }
 

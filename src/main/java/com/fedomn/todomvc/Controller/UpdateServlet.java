@@ -18,7 +18,6 @@ public class UpdateServlet extends HttpServlet {
         String title = req.getParameter("title");
         Boolean state = Boolean.valueOf(req.getParameter("state"));
         String argument = req.getParameter("argument");
-        System.out.println(argument);
 
         if (argument != null && argument.equals("all")) {
             updateAllState(state);

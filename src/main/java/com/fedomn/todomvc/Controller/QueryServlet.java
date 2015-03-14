@@ -25,7 +25,7 @@ public class QueryServlet extends HttpServlet{
 
         String state = req.getParameter("state");
         String argument = req.getParameter("argument");
-        System.out.println(state+" "+argument);
+        System.out.print("query " + state + " " + argument);
 
         if (argument.equals("list")) {
             try {
@@ -41,7 +41,7 @@ public class QueryServlet extends HttpServlet{
                 e.printStackTrace();
             }
         }
-        System.out.println(jsonData);
+        System.out.println(" : " + jsonData);
         out.print(jsonData);
     }
 
