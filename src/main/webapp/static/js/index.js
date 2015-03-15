@@ -25,7 +25,6 @@ $(function () {
 
     var App = {
         init: function () {
-            this.renderFooter();
             this.cacheElements();
             this.bindEvents();
         },
@@ -193,8 +192,6 @@ $(function () {
                 App.renderFooter();
             });
         }
-
-
     };
 
     App.init();

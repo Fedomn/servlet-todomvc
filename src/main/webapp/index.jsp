@@ -1,9 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.fedomn.todomvc.Model.Todo" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.fedomn.todomvc.Service.TodoService" %>
-<%@ page import="com.alibaba.fastjson.JSON" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,11 +15,6 @@
 
 
 <body>
-<%
-    List<Todo> allTodo = new TodoService().getAll();
-%>
-
-    <%--<a class="btn btn-block btn-lg" href="<%=basePath%>index"><h1>Goddess userList</h1></a>--%>
     <section id="todoapp">
         <header id="header">
             <h1>todos</h1>
@@ -33,10 +25,21 @@
             <input id="toggle-all" type="checkbox">
 
             <ul id="todo-list">
-                <c:forEach items="<%=allTodo%>" var="todo">
-                    <li class="active" data-id="${todo.id}">
+                <c:forEach items="${todolist}" var="todo">
+                    <li
+                        <c:choose>
+                            <c:when test="${todo.completed}"> class='completed' </c:when>
+                            <c:otherwise> class="active" </c:otherwise>
+                        </c:choose>
+                    data-id="${todo.id}">
+                    <%--<li class="active" data-id="${todo.id}">--%>
                     <div class="view">
-                        <input class="toggle" type="checkbox">
+                        <input class="toggle" type="checkbox"
+                               <c:choose>
+                                    <c:when test="${todo.completed}"> checked=true </c:when>
+                                    <c:otherwise></c:otherwise>
+                               </c:choose>
+                        >
                         <label>${todo.title}</label>
                         <button class="destroy"></button>
                     </div>
@@ -47,16 +50,16 @@
         </section>
 
         <footer id="footer">
-            <span id="todo-count"><strong><%=allTodo.size()%></strong> items left</span>
+            <span id="todo-count"><strong>${fn:length(todolist)}</strong> items left</span>
             <ul id="filters">
                 <li>
-                    <a href="#/all">All</a>
+                    <a href="/all">All</a>
                 </li>
                 <li>
-                    <a href="#/active">Active</a>
+                    <a href="/active">Active</a>
                 </li>
                 <li>
-                    <a href="#/completed">Completed</a>
+                    <a href="/completed">Completed</a>
                 </li>
             </ul>
             <button id="clear-completed">Clear completed</button>
